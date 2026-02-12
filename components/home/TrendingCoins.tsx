@@ -6,11 +6,17 @@ import { cn } from "@/lib/utils";
 import DataTable from "../DataTable";
 
 const TrendingCoins = async () => {
-  const trendingCoins = await fetcher<{ coins: TrendingCoin[] }>(
-    "/search/trending",
-    undefined,
-    300,
-  );
+  let trendingCoins;
+  try {
+    trendingCoins = await fetcher<{ coins: TrendingCoin[] }>(
+      "/search/trending",
+      undefined,
+      300,
+    );
+  } catch (error) {
+    console.error("Error fetching coin overview:", error);
+    return <div>Loading Trending Coins...</div>;
+  }
 
   const columns: DataTableColumn<TrendingCoin>[] = [
     {
@@ -64,16 +70,14 @@ const TrendingCoins = async () => {
     <div id="trending-coins">
       <h4>Trending Coins</h4>
 
-      <div id="trending-coins">
-        <DataTable
-          data={trendingCoins.coins.slice(0, 6) || []}
-          columns={columns}
-          rowKey={(coin) => coin.item.id}
-          tableClassName="trending-coins-table"
-          headerCellClassName="py-3!"
-          bodyCellClassName="py-2!"
-        />
-      </div>
+      <DataTable
+        data={trendingCoins.coins.slice(0, 6)}
+        columns={columns}
+        rowKey={(coin) => coin.item.id}
+        tableClassName="trending-coins-table"
+        headerCellClassName="py-3!"
+        bodyCellClassName="py-2!"
+      />
     </div>
   );
 };
