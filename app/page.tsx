@@ -6,11 +6,11 @@ const Page = async () => {
   return (
     <main className="main-container">
       <section className="home-grid">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading Coin Overview...</div>}>
           <CoinOverview />
         </Suspense>
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading Trending Coins...</div>}>
           <TrendingCoins />
         </Suspense>
       </section>

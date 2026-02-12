@@ -14,8 +14,8 @@ const TrendingCoins = async () => {
       300,
     );
   } catch (error) {
-    console.error("Error fetching coin overview:", error);
-    return <div>Loading Trending Coins...</div>;
+    console.error("Error fetching trending coin overview:", error);
+    return <div>Loading Trending Coins fetch...</div>;
   }
 
   const columns: DataTableColumn<TrendingCoin>[] = [
