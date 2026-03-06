@@ -9,7 +9,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { DataTableProps } from "@/type";
 
 const DataTable = <T,>({
   columns,
@@ -31,6 +30,8 @@ const DataTable = <T,>({
               key={i}
               className={cn(
                 "bg-dark-400 text-purple-100 py-4 first:pl-5 last:pr-5",
+                headerCellClassName,
+                column.headClassName,
               )}
             >
               {column.header}
@@ -50,7 +51,11 @@ const DataTable = <T,>({
             {columns.map((column, columnIndex) => (
               <TableCell
                 key={columnIndex}
-                className={cn("py-4 first:pl-5 last:pr-5")}
+                className={cn(
+                  "py-4 first:pl-5 last:pr-5",
+                  bodyCellClassName,
+                  column.cellClassName,
+                )}
               >
                 {column.cell(row, rowIndex)}
               </TableCell>
