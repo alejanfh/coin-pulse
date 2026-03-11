@@ -59,8 +59,6 @@ const Page = async ({ params }: NextPageProps) => {
     },
   ];
 
-  console.log("coinData", coinData.market_data.current_price);
-
   return (
     <main id="coin-details-page">
       <section className="primary">
