@@ -4,6 +4,7 @@ import { Separator } from "./ui/separator";
 import CandlestickChart from "./CandlestickChart";
 import DataTable from "./DataTable";
 import { useCoinData } from "@/hooks/useCoinData";
+import { useState } from "react";
 
 const LiveDataWrapper = ({
   coinId,
@@ -21,7 +22,9 @@ const LiveDataWrapper = ({
   // Connect to the websocket and listen for new data
   // const { trades } = useCoinGeckoWebSocket({ coinId, poolId });
   // const { trades } = useCoinGeckoPolling({ coinId, poolId });
-  const { trades } = useCoinData({ coinId, poolId });
+  const [liveInterval, setLiveInterval] = useState<"1s" | "1m">("1s");
+
+  const { trades, ohlcv } = useCoinData({ coinId, poolId, liveInterval });
 
   const tradeColumns: DataTableColumn<Trade>[] = [
     {
@@ -64,7 +67,15 @@ const LiveDataWrapper = ({
       <Separator className="divider" />
 
       <div className="trend">
-        <CandlestickChart coinId={coinId} data={coinOHLCData}>
+        <CandlestickChart
+          coinId={coinId}
+          data={coinOHLCData}
+          liveOhlcv={ohlcv}
+          mode="live"
+          initialPeriod="daily"
+          liveInterval={liveInterval}
+          setLiveInterval={setLiveInterval}
+        >
           <h4>Trend Overview</h4>
         </CandlestickChart>
       </div>
